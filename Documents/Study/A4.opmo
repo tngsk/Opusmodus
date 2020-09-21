@@ -1,0 +1,86 @@
+
+
+(midi-destinations)
+(setf port 11)
+
+(progn
+(setf vec1 (gen-sine 1024 3 1))
+(setf vec2 (gen-sine 1024 2 1))
+
+(setf vec3 (gen-white-noise (* 32 32)))
+
+(setf line (rnd-sample 64 (vector-to-pitch '(c4 c6) vec3)))
+(setf line (tonality-map '(minor-pentatonic) line))
+
+
+(setf line (gen-repeat 1 line))
+(setf length (span line '(s)))
+
+(setf trk1 (make-omn
+            :pitch line
+            :length length
+            ))
+
+(setf trk2 (make-omn
+            :pitch line
+            :length length
+            ))
+
+(setf trk3 (make-omn
+            :pitch line
+            :length length
+            ))
+
+(setf trk4 (make-omn
+            :pitch line
+            :length length
+            ))
+
+(def-score score1
+           (:title ""
+            :composer "Tomohiro Nagasaki"
+            :copyright "Copyright © 2020 Tomohiro Nagasaki"
+            :key-signature '(c minor)
+            :time-signature '(4 4)
+            :tempo 120
+            :file ""
+            )
+  
+  (T1
+   :omn trk1
+   :port port
+   :channel 1
+   :sound 'analogfour
+   :controllers (
+                 DelaySend (gen-controller 32 vec1)
+                 F1Freq (gen-controller 32 vec2)
+                 EnvA_Dcy (gen-controller 32 vec1)
+                 ))
+ 
+#!
+  (T2
+   :omn trk2
+   :port port
+   :channel 2
+   :volume 0)
+
+  (T3
+   :omn trk3
+   :port port
+   :channel 3
+   :volume 0)
+
+  (T4
+   :omn trk4
+   :port port
+   :channel 4
+   :volume 0)
+!#
+
+)
+)
+
+(live-coding-midi 'score1)
+
+;(display-midi *last-score*)
+;(display-musicxml *last-score*)

@@ -1,0 +1,104 @@
+(def-sound-set analogfour
+               :programs
+  (:group default
+          )
+
+  :controllers
+
+  (:group performance
+          performA 3
+          performB 4
+          performC 8
+          performD 9
+          performE 11
+          performF 64
+          performG 65
+          performH 66
+          performI 67
+          performJ 68
+
+          :group mod
+          ModWheel 1
+          Breath 2
+          
+          :group common
+          TrackLevel 95
+          
+          :group osc1
+          Pitch1 16
+          Level1 69
+          Waveform1 70
+          SubOcs1 71
+          Pulsewidth1 72
+          PWMSpeed1 73
+          PWMDepth1 74
+          
+          :group noise
+          NoiseS&H 75
+          NoiseFade 76
+          NoiseLevel 77
+
+          :group osc2
+          Pitch2 77
+          Level2 78
+          Waveform2 79
+          SubOcs2 80
+          Pulsewidth2 81
+          PWMSpeed2 82
+          PWMDepth2 83
+
+          :group osc-common
+          SyncAmt 84
+          BendAmt 85
+          SlideTime 5
+          VibSpeed 87
+          VibDepth 88
+
+          :group filter
+          Fltr1Freq 18
+          Fltr1Res 89
+          Fltr1EnvAmt 102
+          Fltr2Freq 19
+          Fltr2Res 90
+          Fltr2EnvAmt 103
+
+          :group amp
+          EnvAAtk 104
+          EnvADcy 105
+          EnvASus 106
+          EnvARel 107
+          ChrsSend 91
+          DlySend 92
+          RvrbSend 93
+          Pan 10
+          Volume 7
+
+          :group envf
+          EnvFAtk 108
+          EnvFDcy 109
+          EnvFSus 110
+          EnvFRel 111
+          EnvFDptA 20
+          EnvFDptB 21
+
+          :group env2
+          Env2Atk 112
+          Env2Dcy 113
+          Env2Sus 114
+          Env2Rel 115
+          Env2DptA 22
+          Env2DptB 23
+
+          :group lfo1
+          LFO1Speed 116
+          LFO1Multi 117
+          LFO1DptA 24
+          LFO1DptB 25
+
+          :group lfo2
+          LFO2Speed 118
+          LFO2Multi 119
+          LFO2DptA 26
+          LFO2DptB 27
+
+))

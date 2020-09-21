@@ -1,0 +1,42 @@
+;;; file version
+
+3 
+
+;;; navigator
+
+(:GROUP "root"
+ ((:FILE "score.opmo") (:FILE "XO.opmo") (:FILE "A4.opmo")
+  (:FILE "Note.opmo") (:FILE "euc.opmo")))
+
+;;; layout plist
+
+(:NAVIGATOR-RECT #(0.0D0 0.0D0 180.0D0 812.0D0)
+ :SELECTED-NAVIGATOR-TAB-TAG 0 :NAVIGATOR-COLLAPSED-P NIL
+ :MIDDLE-RECT #(181.0D0 0.0D0 1101.0D0 812.0D0) :COMPOSER-VISIBLE-P T
+ :ASSISTANT-VISIBLE-P T :LISTENER-RECT
+ #(0.0D0 610.0D0 551.0D0 202.0D0) :LISTENER-COLLAPSED-P NIL
+ :UTILITIES-RECT #(1283.0D0 0.0D0 256.0D0 812.0D0)
+ :SELECTED-UTILITIES-TAB-TAG 6 :QUICK-VIEW-COLLAPSED-P NIL
+ :UTILITIES-COLLAPSED-P NIL)
+
+;;; composer
+
+"euc.opmo" 
+
+;;; list of assistants
+
+NIL 
+
+;;; grid menu state 
+
+(:GRID-MENU-STATE
+ (:COMPOSER
+  ("euc.opmo" "Note.opmo" "A4.opmo" "Score.opmo"
+   "/Applications/Opusmodus.app/Contents/Resources/English.lproj/system.omdocset/Documentation/4. Score Examples/Jazz/DADA Quartet.opmo"
+   "/Users/nagasaki/Documents/Opusmodus/Def-Libraries/Def-Sound-Sets/ARGON8.lisp"
+   "XO.opmo")
+  :ASSISTANTS NIL))
+
+;;; quick-view pathname
+
+"/Applications/Opusmodus.app/Contents/Resources/English.lproj/system.omdocset/Documentation/1. OMN The Language/1. Introduction/Introduction to OMN.pdf"

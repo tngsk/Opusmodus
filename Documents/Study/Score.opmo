@@ -1,0 +1,99 @@
+(add-program-attributes
+'(finger)
+'(pick)
+'(slap)
+'(bend)
+'(vibrato)
+'(ham)
+'(legato)
+'(ghost)
+'(harm)
+'(cst)
+'(gst)
+'(dst)
+'(ast)
+'(est)
+'(bst)
+'(pos)
+)
+
+(setf pitch (tonality-map '(minor-pentatonic) (vector-to-pitch 
+                                              '(c4 c6) (gen-white-noise 32))))
+
+(setf length (vector-to-length 16 -5 10 (gen-white-noise 32)))
+(setf length (span pitch '(s)))
+
+
+(setf ptn1 (make-omn
+            :pitch pitch
+            :length length))
+
+(setf vec1 (gen-sine 1024 8 1))
+(setf vec2 (gen-sine 10242 4 1))
+(setf vec3 (gen-sine 1024 10 0.5))
+(list-plot vec1 :join-points t)
+
+
+
+
+
+(setf bass-1 '(e c2 finger c3 slap c2 finger c3 slap c2 finger c3 slap c2 finger c3 slap))
+(setf bass-1 (pitch-transpose 12 bass-1))
+
+(setf bass-2 (make-omn
+              :pitch (gen-repeat 8 '(c3 c4 c4))
+              :length (gen-repeat 8 '(e s s))
+              :articulation (gen-repeat 8 '(finger slap slap))
+))
+
+
+
+#!
+(list-plot
+(gen-controller 1/4 vec1 :min 20 :max 100)
+:join-points t)
+
+(list-plot
+ (assemble-seq (gen-controller 5 vec2) (gen-controller 5 vec1))
+ :join-points t)
+
+(list-plot (gen-controller 8 vec1))
+!#
+
+
+(def-score Score1
+           (:title ""
+            :composer "Tomohiro Nagasaki"
+            :copyright "Copyright © 2020 Tomohiro Nagasaki"
+            :key-signature '(c minor)
+            :time-signature '(4 4)
+            :tempo 120
+            :file ""
+            )
+  
+  (track1
+   :omn ptn1
+   :sound 'argon8
+   :port 4
+   :channel 1
+   ;:program 15
+   ;:pan 64
+   :volume 127
+   :controllers (Joystick-Y- (gen-controller 2 vec1))
+   )
+
+  (bass
+   :omn bass-2
+   :sound 'modobass
+   :port 5
+   :channel 1
+   :volume 127
+   ;:controllers
+   )
+)
+
+(midi-destinations)
+
+(display-midi *last-score*)
+(display-musicxml *last-score*)
+

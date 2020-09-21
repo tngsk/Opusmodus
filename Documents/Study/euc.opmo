@@ -1,0 +1,141 @@
+(progn
+
+(setf pattern-length (* 16 1))
+(defun rnd-rotate()
+  (rnd-centered 0))
+
+; kick1
+
+(setf bin (gen-binary-euclidean 1 16 3 5 :rotate (rnd-rotate) :seed nil))
+(setf length (binary-map bin 's :omn t))
+(setf kick (span length '(c2)))
+
+(setf kick1 (make-omn
+          :pitch kick
+          :length length))
+
+; clap
+
+(setf bin (gen-binary-euclidean 1 11 5 8 :rotate (rnd-rotate) :seed nil))
+(setf length (binary-map bin 's :omn t))
+(setf clap (span length '(e2)))
+
+(setf clap (make-omn
+          :pitch clap
+          :length length))
+
+
+; HH-CL
+
+(setf bin (gen-binary-euclidean 1 12 5 8 :rotate (rnd-rotate) :seed nil))
+(setf length (binary-map bin 's :omn t))
+(setf hhcl (span length '(ds2)))
+
+(setf hhcl (make-omn
+          :pitch hhcl
+          :length length))
+
+
+; Flex 2
+
+(setf bin (gen-binary-euclidean 1 pattern-length 2 3 :rotate (rnd-rotate) :seed nil))
+(setf length (binary-map bin 's :omn t))
+(setf flex2 (span length '(g2)))
+
+(setf flex2 (make-omn
+          :pitch flex2
+          :length length))
+
+
+
+; Flex 1
+
+;(setf bin (gen-binary-euclidean 1 16 2 3 :rotate 0 :seed nil))
+(setf bin '(0 0 1 0 0 0 1 0 0 0 1 0 0 1 1))
+(setf length (binary-map bin 's :omn t))
+(setf flex1 (span length '(fs2)))
+
+(setf flex1 (make-omn
+          :pitch flex1
+          :length length))
+
+
+; seq
+(progn
+(setf vec1 (gen-white-noise pattern-length))
+(setf seq (rnd-sample pattern-length (vector-to-pitch '(c4 c7) vec1)))
+(setf seq (tonality-map '(minor-pentatonic) seq))
+(setf bin (gen-binary-euclidean 1 13 9 15 :rotate (rnd-rotate) :seed nil))
+(setf length (binary-map bin 's :omn t))
+(setf seq (make-omn
+           :pitch seq
+           :length length))
+)
+
+
+; bass
+(progn
+(setf bass '(c1 c1 c1 c2 bb1 ab1 eb2))
+(setf bass (pitch-transpose 12 bass))
+(setf bass (rnd-sample pattern-length bass))
+;;(setf bass (tonality-map '(minor-pentatonic) bass))
+(setf bin (gen-binary-euclidean 1 15 4 7 :rotate 0 :seed nil))
+(setf length (binary-map bin 's :omn t))
+(setf bass (make-omn
+           :pitch bass
+           :length length))
+)
+
+
+
+
+)
+; score
+(setf xo 3)
+(setf a4 11)
+
+(def-score rhythm
+           (:tempo 120
+            :time-signature '(4 4))
+  (inst1
+   :omn kick1
+   :port xo
+   :channel 1)
+
+  (inst2
+   :omn clap
+   :port xo
+   :channel 1)
+
+  (inst3
+   :omn hhcl
+   :port xo
+   :channel 1)
+
+  (inst4
+   :omn flex2
+   :port xo
+   :channel 1)
+
+  (inst5
+   :omn flex1
+   :port xo
+   :channel 1)
+
+  (inst6
+   :omn seq
+   :port a4
+   :channel 1)
+
+  (inst7
+   :omn bass
+   :port a4
+   :channel 2)
+
+)
+
+(live-coding-midi 'rhythm)
+
+
+(midi-destinations)
+

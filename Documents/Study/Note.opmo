@@ -1,0 +1,96 @@
+
+
+
+; binary
+
+(gen-binary-series 16 1 '(1 2 3))
+
+(progn
+
+
+(setf bin (gen-binary-euclidean 1 12 3 7 :rotate 0 :seed nil))
+(setf length (binary-to-length bin :omn t))
+(setf kick (span length '(c2)))
+
+(setf kick1 (make-omn
+          :pitch kick
+          :length length))
+
+
+(setf bin (gen-binary-euclidean 1 15 5 7 :rotate 0 :seed nil))
+(setf length (binary-to-length bin :omn t))
+(setf clap (span length '(ds2)))
+
+(setf clap (make-omn
+          :pitch clap
+          :length length))
+
+
+
+(def-score rhythm
+           (:tempo 120
+            :time-signature '(4 4))
+  (inst1
+   :omn kick1
+   :port 3
+   :channel 1)
+
+  (inst2
+   :omn clap
+   :port 3
+   :channel 1)
+
+
+)
+
+(display-midi *last-score*)
+
+)
+
+(midi-destinations)
+
+
+
+
+
+
+
+
+; G/C G/A Cmaj7/F Am7/D Fmaj7/G G/C
+
+'((q c3g3b3d4 c3g3b3d4 c3g3b3d4 c3g3b3d4)
+  (q a2g3b3d4 a2g3b3d4 a2g3b3d4 a2g3b3d4)
+  (q f2c3e3g3b3 f2c3e3g3b3 f2c3e3g3b3 f2c3e3g3b3)
+  (q d2a2c3e3g3 d2a2c3e3g3 g2f3a3c3e4 g2f3a3c3e4)
+  (q c3g3b3d4 c3g3b3d4 c3g3b3d4 c3g3b3d4))
+
+
+; Poly Chord
+; Bm7 / C
+
+(setf bm7 (expand-chord '(b3 m7)))
+(setf c (expand-chord '(c2 maj)))
+
+(setf poly
+(make-omn
+ :pitch (pitch-mix (list bm7 c))
+ :length '(w))
+)
+
+(def-score chord
+           (
+            :key-signature '(c maj)
+            :time-signature '(4 4)
+            :tempo 140
+            :layout (grand-layout 'inst1))
+  (inst1
+   :omn poly)
+
+  (drum
+   :omn p1
+   :sound 'gm
+   :channel 10)
+)
+
+(display-midi *last-score*)
+(display-musicxml *last-score*)
