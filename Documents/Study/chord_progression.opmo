@@ -1,0 +1,49 @@
+
+
+
+
+
+
+;; first chord
+
+(setf chord-pattern '((c3 m7) (ab2 maj7) (bb2 maj) (c3 m7)))
+
+;; inversion
+
+(setf ex-chord-pattern (mapcar #'expand-chord chord-pattern))
+(setf pitch (chord-inversion
+             '(-1 1 0 -1)
+             (flatten ex-chord-pattern)))
+
+;; bassline
+
+(setf bassline (mapcar #'car chord-pattern))
+
+
+;; omn
+
+(setf p1 (make-omn
+          :pitch (pitch-transpose 12 pitch)
+          :length (span pitch '(w))
+))
+
+
+(midi-destinations)
+(setf argon8 1)
+
+(def-score score
+           (
+            :tempo 120
+            :time-signature '(4 4)
+            )
+
+  (inst1
+   :omn p1
+   :port argon8
+   :sound 'argon8
+   ;;:program '012-SoftRoads
+   )
+)
+
+(display-midi *last-score*)
+(live-coding-midi 'score)

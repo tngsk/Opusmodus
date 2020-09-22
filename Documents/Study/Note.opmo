@@ -1,5 +1,23 @@
 
 
+;; MIDI Entry
+
+(c3 e3 g3 b3 d4 fs4 a4)
+
+(c3bb3eb4g4)
+
+
+
+
+;; chord
+
+;; bass line
+
+(setf bassline '(c3 ab2 bb2 c3))
+
+;; chord type
+
+(setf chordtype '(m7 maj7 maj m7))
 
 ; binary
 
